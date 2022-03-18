@@ -16,42 +16,50 @@ public class AddTwoNumbers {
     public  ListNode addTwoNumbers(ListNode l1, ListNode l2){
         ListNode dummy = new ListNode(0);
         ListNode current = dummy;
-        int carry = 0;
-       // If there are remaining nodes (l1, l2) in both two linked lists, the result linked list node gets value from ((l1.val + l2.val + carry) % 10).
-        while (l1 != null && l2 != null) {
-            int value = (l1.val + l2.val + carry) % 10;
-            carry = (l1.val + l2.val + carry) / 10;
+
+        int carry = 0 ;
+        while( l1 != null && l2 != null){
+            int sum = (l1.val + l2.val + carry);
+            int value = sum%10;
+            carry = sum/10;
             ListNode result = new ListNode(value);
             current.next = result;
             l1 = l1.next;
             l2 = l2.next;
             current = result;
+
         }
 
-        //If there is only one linked list has remaining node, the esult linked list node gets value ((l1.val + carry) % 10 or (l2.val + carry) % 10).
-        while (l1 != null) {
-            int value = (l1.val + carry) % 10;
-            carry = (l1.val + carry) / 10;
+        while( l1 != null ){
+            int sum = (l1.val + carry);
+            int value = sum/10;
+            carry = sum%10;
             ListNode result = new ListNode(value);
             current.next = result;
             l1 = l1.next;
+
             current = result;
+
         }
 
-        while (l2 != null) {
-            int value = (l2.val + carry) % 10;
-            carry = (l2.val + carry) / 10;
+        while( l2 != null){
+            int sum = ( l2.val + carry);
+            int value = sum/10;
+            carry = sum%10;
             ListNode result = new ListNode(value);
             current.next = result;
+
             l2 = l2.next;
             current = result;
+
         }
-        // If neither of the linked lists has remaining nodes, we should check if there is still carryover value.
-        if (carry != 0) {
+        if(carry !=0){
             ListNode result = new ListNode(carry);
             current.next = result;
             current = result;
+
         }
+
 
         return dummy.next;
     }
